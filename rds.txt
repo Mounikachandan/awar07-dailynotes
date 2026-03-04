@@ -1,0 +1,111 @@
+
+
+
+RDS : Relational Database Service
+
+AWS supports multiple RDS DB Engines.
+
+1. Amazon Aurora (Mysql Compatable Edition & PostgreSQL Compatable)
+2. MySql : 3306			: Mysql Workbench / dbeaver
+3. MS Sql : 1433		: SSMS (Sql server management studio)
+4. MariaDB				: workbench
+5. PostgreSQL : 5432	: pgadmin / dbeaver
+6. Oracle DB : 1521		: sql developer / Toad
+7. IBM DB2				: ibm enterprise tool
+
+Windows : rdp : 3389
+Linux : ssh : 22
+
+** We dont get any chance to login to underlying OS, where DB is installed and running.
+
+Pre-req: Create a "DB subnet" with 2 dedicated subnets created for DB workload.
+
+Launch/Create a DB : 
+
+Create a Security group for DB. Mysql : 3306 : APP-SG & JUMP-SG
+
+
+
+---
+myrdsdb.c1ekg4m6e0fi.ap-south-1.rds.amazonaws.com	--> myapp.awswithavinashreddy.com
+admin
+Avinash12345
+---
+
+When DB created, We dont get IP Address, We get a DNS name.
+
+Also, DNS name is hard to remember, So, We can add an CNAME in route53.
+
+
+---
+
+if your jump server is Linux, Install mysql client tool.
+
+
+dnf install mariadb105 -y
+
+mysql -h myapp.awswithavinashreddy.com -u admin -P 3306 -p
+
+SHOW DATABASES;
+CREATE DATABASE mydb;
+USE mydb;
+
+SHOW TABLES;
+
+CREATE TABLE users (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name VARCHAR(100),
+	age INT
+);
+
+DESC users;
+
+INSERT INTO users (name, age) VALUES ('Avinash' , 35);
+INSERT INTO users (name, age) VALUES ('Anudeep' , 33);
+INSERT INTO users (name, age) VALUES ('Aravind' , 31);
+
+SELECT * FROM users;
+SELECT * FROM users LIMIT 1;
+SELECT name FROM users WHERE age > 33;
+
+UPDATE users SET age = 30 WHERE name = 'Aravind';
+
+DELETE FROM users WHERE name = 'Avinash';
+
+DROP DATABASE mydb;
+
+DROP TABLE <Table_Name> or DROP TABLE IF EXISTS <Table_Name>
+TRUNCATE TABLE <Table_Name> 		--> To delete all the data from a table
+
+EXIT;
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
