@@ -63,6 +63,9 @@ DESC users;
 INSERT INTO users (name, age) VALUES ('Avinash' , 35);
 INSERT INTO users (name, age) VALUES ('Anudeep' , 33);
 INSERT INTO users (name, age) VALUES ('Aravind' , 31);
+INSERT INTO users (name, age) VALUES ('Vikas' , 26);
+
+INSERT INTO users (name, age) VALUES ('Vikas2' , 24);
 
 SELECT * FROM users;
 SELECT * FROM users LIMIT 1;
@@ -74,6 +77,8 @@ DELETE FROM users WHERE name = 'Avinash';
 
 DROP DATABASE mydb;
 
+
+
 DROP TABLE <Table_Name> or DROP TABLE IF EXISTS <Table_Name>
 TRUNCATE TABLE <Table_Name> 		--> To delete all the data from a table
 
@@ -81,13 +86,13 @@ EXIT;
 
 ----
 
+D: 05/03/2026
 
 
 
-
-
-
-
+Name:    multi-azdemo.cfpgnjehw330.ap-south-1.rds.amazonaws.com
+Address:  172.31.29.91 - 1c
+Address:  172.31.13.22 - 1b
 
 
 
