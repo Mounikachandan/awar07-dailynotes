@@ -88,6 +88,57 @@ Expedited retrieval: Typically within 1-5 minutes when retrieving less than 250 
 S3 Intelligent Tier : 
 
 
+=================
+
+D: 09/03/2026
+
+S3 Versioning:
+
+THis help us to maintain multiple versions of an object within same bucket.
+
+By Defaultly, Versioning is suspended in new buckets. 
+If We can enable this, S3 will keep track of the file changes. 
+
+--> When we delete any file accidentally, we can recover it.
+
+Delete : We can recover. S3 will create a "Delete Marker", Delete the delete marker to get your object back.
+Permanently Delete : Deletes completely, no recover option.
+
+---
+
+LCR : Lifecycle Configuration Rule: Helps to transit data from one storage class to another storage class autopmatically.
+Also, Helps to delete the data based on configured retention period.
+
+---
+
+Replication rules : helps to replicate the data from one bucket to another bucket.
+SRR : Same Region replication : Source and destination bucket will be in same region.
+CRR : Cross Region replication : Source and destination bucket will be in different regions.
+
+
+If we already have some existing data, we cannot replicate that. All future and subsequent uploads will be replicated to destination bucket.
+
+=====
+
+S3 Events : 
+
+Lambda function : Run a Lambda function script based on S3 events.
+SNS topic : Fanout messages to systems for parallel processing or directly to people.
+SQS queue : Send notifications to an SQS queue to be read by a server.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
