@@ -215,6 +215,68 @@ http status codes:
 5XX : Server Side error
 
 
+======================
+
+D: 11/03/2026
+
+
+I have an IAM user, who has "S3 Full Access".. but one bucket host some sensitive infromation that need to protect from Delete and upload from a specific/set of user..
+
+1. Bucket ARN (Amazon Resource Name) : arn:aws:s3:::avinash-awar07-s3-demo
+2. Principal : user / group : 
+3. Effect : allow / deny
+4. Actions to take effect : PutObject, GetObject, ListObject
+
+Bucket level operation : arn:aws:s3:::avinash-awar07-s3-demo
+Object level operation : arn:aws:s3:::avinash-awar07-s3-demo/*
+
+
+1. arn:aws:s3:::avinash-awar07-s3-demo,arn:aws:s3:::avinash-awar07-s3-demo/*
+2. arn:aws:iam::655700896650:user/encry-test
+3. deny
+4. DeleteObject and PutObject
+
+
+1. Bucket ARN (Amazon Resource Name) : arn:aws:s3:::avinash-awar07-s3-demo/*
+2. Principal : user / group : *
+3. Effect : allow
+4. Actions to take effect : GetObject
+
+-----
+
+Transfer Acceleration : Upload data to s3 bucket via transfer acceleration feature.
+
+--> We cannt enable this feature, if we have . in the bucket name.
+
+---
+
+Default S3 bucket performance:
+
+3500 PUT Operations per Second per prefix		--> Upload
+5500 GET Operations per Second per prefix		--> Download/access/get
+
+Use prefixes to get more performance
+Add some randomness to the object names (Improves the search mechanism)
+
+---
+
+Snow family devices : without using internet, we can transfer data into/from s3 bucket.
+
+---
+
+Server access logging
+
+---
+
+Object Lock : We can enfore delete standards on S3 bucket.
+
+Governence Mode : We can disable the object lock and delete it.
+COmpliance Mode : No one can delete the data (including root user).
+
+
+
+
+
 
 
 
