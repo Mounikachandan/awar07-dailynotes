@@ -273,6 +273,76 @@ Object Lock : We can enfore delete standards on S3 bucket.
 Governence Mode : We can disable the object lock and delete it.
 COmpliance Mode : No one can delete the data (including root user).
 
+---
+
+D: 12/03/2026
+
+CORS : 
+
+https://youtu.be/YrfDLrSVxQ8?si=wocnwpTLvsWWJ2Co
+
+---
+
+Inventory configurations : FUll info about the data.
+
+Storage Class Analysis : Data with its access patterns.. 
+
+---
+
+Directory Bucket : Recommended for low-latency use cases. These buckets use only the S3 Express One Zone storage class, which provides faster processing of data within a single Availability Zone.
+
+--> Data is stored in a single Availability Zone. It uses S3 Express One Zone storage class.
+--> For every bucket name we get a zone prefix "--aps1-az1--x-s3"
+--> Support very high request rate.
+--> Relatime data processing (low HA/FT)
+
+---
+
+Table buckets : Buckets designed speciafically for analytics purposes.
+Supports data formats i.e; parqut, apache iceberg.
+
+--> Buildin table management
+--> We can integrate these buckets wityh Analytics engines. (Athena, EMR, Spark, Redshift)
+--> It supports ACID table operations
+
+A - Atomicity : A transaction executes completely or not at all. 
+C - Consistency : Transaction moves the system from one valid state to another vgalid state.
+I - isolation : Multuiple transactions runs concurrently. 
+D - Durability : Ones a transaction is commited, the changes are permanent, even if the system fails.
+
+---
+
+Vector Buckets : buckets are designed to store and query vector embeddings used by AI applications.
+
+RAG (Retrieval Augmented Generation)
+
+---
+
+S3 Consistency Model: Amazon S3 currently uses a strong "read-after-write" consistency model for all operations
+
+---
+
+MultiPart Upload : Deviding a large file into multiple parts and uploading small chunks and combining the file once all chunks/parts uploaded.
+
+aws s3 cp largefile.mp4 s3://bucket-name/ --part-size 10MB
+
+
+==================
+
+Cloudfront : 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
