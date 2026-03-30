@@ -76,6 +76,189 @@ docker run -d -p 8080:80 nginx:1.28
 docker run -d -p 8888:80 -p 8880:443 nginx:1.28
 
 
+================
+
+docker system df		--> Docker disk usage
+
+
+docker run -d -p 8080:80 nginx:1.28
+
+docker inspect --format='{{.HostConfig.Memory}}' 3357cda94606
+docker inspect --format='{{.HostConfig.NanoCpus}}' 3357cda94606
+
+
+docker run -d --name myapp --memory=256m --cpus=1 nginx:1.28
+
+docker inspect --format='{{.HostConfig.Memory}}' myapp
+docker inspect --format='{{.HostConfig.NanoCpus}}' myapp
+
+---
+
+Restart Policies: 
+
+For production workloads, we use "always" most of the times.
+
+no				- never restart (default)
+on-failure		- Restart only if container exits with error
+always			- Always restart, including on host reboot
+
+
+docker run -d --restart=always -p 8080:80 nginx:1.28
+
+----
+
+Debugging:
+
+docker logs <container-id>
+
+docker run -d --name myapp -p 8080:80 nginx:1.28
+
+docker logs -f <container-id>					--> live logs
+
+docker logs --tail 10 <container-id>			--> Recent 10 logs
+
+docker logs -t <container-id> 					--> logs with timestamp
+
+
+---
+
+docker events
+
+docker top <container-id>					--> view processes inside a container
+
+docker stats								--> Live all containers usage
+
+docker stats <container-id>					--> Single container usage stats
+
+docker rename <old-name> <new-name>			--> To rename a container
+
+docker pause <container-id>
+docker unpause <container-id>
+
+
+docker cp <source> <destination>
+
+docker cp ./file.txt <container-id>:/path/file.txt
+docker cp ./index.html mydevapp:/usr/share/nginx/html/index.html
+
+docker cp <container-id>:/path/file.txt ./
+
+---
+
+We can create an Image from a container.
+
+docker commit <container-id> customnginx:v1
+
+docker commit mydevapp customnginx:v1
+
+---
+
+How to connect to a container:
+
+
+#Bash Supported
+docker exec -it mydevapp /bin/bash
+
+#No shell
+docker exec -it mydevapp /bin/sh
+
+docker exec mydevapp cat /etc/os-release
+
+docker exec mydevapp sleep 10
+
+
+---
+
+Export image as a tar file, so that we can share with other machines.
+
+docker save -o myimage.tar customnginx:v1
+
+docker load -i myimage.tar
+
+----
+
+docker container prune				--> Removes all stopped containers
+
+docker image prune					--> Removed untaged/Dangling images
+docker image prune -a				--> Removes all unused images
+
+docker rm -f $(docker ps -aq)		--> This will remove all running & stopped containers
+
+===========
+
+Network Modes in Containers:
+
+
+bridge : Default network mode. Containers gets their own virtual network.
+host : Container shares host machine's network and Port directly.
+none : No network at all.
+container : Shares network with another container. 
+
+docker network ls
+
+docker network inspect bridge
+
+docker network create mynetwork
+
+docker run -dit --name c1 --network mynetwork alpine
+docker run -dit --name c2 --network mynetwork alpine
+
+
+---
+
+docker run -d --network host nginx
+
+
+---
+
+docker run -it --network none alpine sh
+
+-------
+
+We can add an existing container to a network:
+
+docker network connect <net-name> <cotnainer-name>
+
+
+docker network connect mynetwork 14e46f0075d5
+
+---
+
+
+bridge : 
+
+own virtual IP inside docker network
+Required port mapping
+This is an isolated network
+Slightly slower as additional hop added
+Best for Multi Container applications.
+
+Host: 
+Shares host's IP and port
+Port mapping not required. Uses host ports.
+Less isolated, as it uses host network
+Bit faster as it uses host networtk directly
+system level tooling, Host monitoring agents
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
