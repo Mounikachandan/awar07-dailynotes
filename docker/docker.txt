@@ -358,6 +358,83 @@ While SIGTERM is the standard for most applications to initiate a "polite" exit,
 
 ---
 
+docker build --no-cache -t image-name:tag .
+
+--no-cache	: it wont use the cache layers if we pass --no-cache
+
+---
+
+Step 1 ; Login to Dockerhub
+
+Step 2 : tag the image (dockerhubusername/imagena:tag)
+
+docker tag 4935e8839327 avizway/mygoapp:multi
+
+Step 3 : Push to docker
+
+docker push avizway/mygoapp:multi
+
+Now, anyone can pull this image using "docker pull avizway/mygoapp:multi"
+
+----
+
+docker search nginx
+
+docker search --filter is-official=true nginx
+
+==============
+
+AWS has ECR (Elastic Container Registry), Similar to "DockerHub"
+
+--> create a repo in ECR
+
+Step 1 : login to ECR Repo
+
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 655700896650.dkr.ecr.ap-south-1.amazonaws.com
+
+Step 2 : Tag the image
+
+docker tag mygoapp:v2 655700896650.dkr.ecr.ap-south-1.amazonaws.com/mygoapp:v2
+
+Step 3 : push the image
+
+docker push 655700896650.dkr.ecr.ap-south-1.amazonaws.com/mygoapp:v2
+
+==============
+
+
+Docker compose helps us to run multiple containers at a time using a single YAML file.file name  "docker-compose.yaml"
+
+Install Docker Compose with below command
+
+# Ensure the directory exists
+mkdir -p ~/.docker/cli-plugins
+
+# Download the correct binary (copy the entire line)
+curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o ~/.docker/cli-plugins/docker-compose
+
+# Make the plugin executable
+chmod +x ~/.docker/cli-plugins/docker-compose
+
+
+---
+
+
+docker compose up
+docker compose up -d
+docker compose down
+docker compose down -v
+docker compose build
+docker compose ps
+docker compose logs
+docker compose restart
+docker compose top
+
+
+
+
+
+
 
 
 
