@@ -40,6 +40,39 @@ Container Image
 Essential container : Yes: If this container dies, Kill the task. 
 
 
+==============
+
+D: 06/04/2026
+
+1. exec
+2. EFS
+3. LB, ASG + Task, Service
+
+
+
+
+EFS ARN : arn:aws:elasticfilesystem:ap-south-1:655700896650:file-system/fs-0561114224a30c90a
+EFS ACCESS POINT : arn:aws:elasticfilesystem:ap-south-1:655700896650:access-point/fsap-0f39087545ebdbb36
+
+---
+
+If our workload is in private subnet, we need below endpoints to pull the image from ECR to ECS.
+
+--> ECR DKR Endpoint (Docker Registry)
+--> ECR API Endpoint (For Authentication)
+--> Logs (Cloudwatch) Endpoint 
+--> S3 Gateway Endpoint: For Image layers
+
+Create a LB in public SUbnet
+
+Create a Service with our application
+
+
+
+
+
+
+
 
 
 
