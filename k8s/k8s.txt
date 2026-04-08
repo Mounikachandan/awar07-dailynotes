@@ -111,7 +111,7 @@ eksctl create cluster --name=ekswithavinash1 --version 1.34 --region ap-south-1 
 
 OIDC Provider: OpenID Connect allows AWS IAM to authenticate with K8s service accounts. 
 
-eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash --approve
+eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash1 --approve
 
 
 ---
@@ -123,6 +123,38 @@ aws eks update-kubeconfig --region ap-south-1 --name ekswithavinash
 ---
 
 eksctl delete cluster --name ekswithavinash --region ap-south-1
+
+=========
+
+kubectl apply -f pod.yaml --dry-run=client
+
+kubectl apply -f pod.yaml 
+
+kubectl describe pods myfirstpod
+
+
+apiVersion: v1 (Core Group)
+This is the "legacy" or core API group.
+It contains the most fundamental Kubernetes objects that do not require a group name in their version string.
+Common objects: Pods, Services, Namespaces, ConfigMaps, and Secrets.
+
+apiVersion: apps/v1 (Named Group)
+This belongs to the apps API group, which is a "named group".
+It is the stable version for managing application-level workloads on Kubernetes.
+Common objects: Deployments, DaemonSets, ReplicaSets, and StatefulSets.
+
+
+kubectl apply -f 02-replicaset.yaml --dry-run=server
+
+kubectl get pods --watch
+
+kubectl delete replicaset nginxrs
+
+kubectl exec -it nginx-deployment-6f9664446b-pnjgf -- /bin/bash
+
+
+
+
 
 
 
