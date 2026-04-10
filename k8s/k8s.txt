@@ -106,12 +106,12 @@ Prerequisites:
 
 
 
-eksctl create cluster --name=ekswithavinash1 --version 1.34 --region ap-south-1 --zones=ap-south-1a,ap-south-1b --nodegroup-name mynodegroup --node-type c7i-flex.large --nodes 2 --node-ami-family=AmazonLinux2023 --managed
+eksctl create cluster --name=ekswithavinash --version 1.34 --region ap-south-1 --zones=ap-south-1a,ap-south-1b --nodegroup-name mynodegroup --node-type c7i-flex.large --nodes 2 --node-ami-family=AmazonLinux2023 --managed
 
 
 OIDC Provider: OpenID Connect allows AWS IAM to authenticate with K8s service accounts. 
 
-eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash1 --approve
+eksctl utils associate-iam-oidc-provider --region ap-south-1 --cluster ekswithavinash --approve
 
 
 ---
@@ -152,7 +152,54 @@ kubectl delete replicaset nginxrs
 
 kubectl exec -it nginx-deployment-6f9664446b-pnjgf -- /bin/bash
 
+-------
 
+
+ClusterIP: We cannot expose our workload to outside world. This is the default servcie for our workload. 
+*If we dont mention any service type, this picks automatically.
+
+
+To test the output from your local laptop, You do port-forward.
+
+kubectl port-forward svc/cip-demo 8080:80
+
+
+----
+
+NodePort : A Nodeport service exposes our application on a Static port on every worker node. 
+NodePOrt range: 30000 - 32767
+*Make sure to open the port at SG of instance.
+
+----
+
+LoadBalancer: We can use AWS Classic load balancer to deliver our workload to outisde world. 
+** Production level, we use ingress, not classic load balancer.
+
+----
+
+
+CPU: 
+m : millicores
+1 CPU = 1000 millicores
+0.5 CPU = 500 millicores = 500m
+0.2 CPU = 200 millicores = 200m
+
+Memory: Mebibytes:
+
+1 Mi = 1024 KiB
+1 Gi = 1024 Mi
+
+requests: Minimum resources k8s guarantees to the pod.
+limits: Maximum resources the pod is allowed to use to run the workload.
+
+If our container tries to access more resources than allocated.. Pod kills with OOMKilled error.
+
+OOM - Out of Memory
+
+--> Too low memory to run the container
+--> Large in-memory operations
+--> Sudden spike in traffic to the pod
+--> Application level memory leak (Invenstigation needed)
 
 
 
